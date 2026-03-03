@@ -16,6 +16,7 @@ with open("input.md", "r", encoding="utf-8") as f:
                 y += 1
             case 'v':
                 y -= 1
+        #Though not strictly necessary, I wanted to count the distinct number of presents each house got because why not?
         if f'{[x,y]}' not in present_tally:
             present_tally[f'{[x,y]}'] = 1
         else:
