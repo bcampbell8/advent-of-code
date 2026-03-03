@@ -59,6 +59,11 @@ with open("input.md", "r", encoding="utf-8") as f:
                 present_tally_s2[f'{[xp,yp]}'] = 1
             else:
                 present_tally_s2[f'{[xp,yp]}'] += 1
+
+#Creates a dictionary merged from the two inputs into a new dictionary.
+#The final dictionary has all unique keys, and for the values I think
+#it defaults to those given by the second argument.
+#https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression-in-python
 total_tally = present_tally_s1 | present_tally_s2
 print(len(list(total_tally)))
 
