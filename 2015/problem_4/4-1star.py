@@ -24,12 +24,17 @@ while True:
     altered_key = secret_key + f'{counter}'
     output = hashlib.md5(altered_key.encode()).hexdigest()
     if (output[:5] == hashsample):
-        print(f"Secret key {secret_key} with the number {counter} produces a key of {altered_key} with a hash of {output}")
-        f.write(f"=========================================================================================\n")
-        f.write(f"Secret key {secret_key} with the number {counter} produces a key of {altered_key} with a hash of {output}\n")
-        f.write(f"=========================================================================================")
+        print(f"""Secret key {secret_key} with the number {counter} produces
+              a key of {altered_key} with a hash of {output}""")
+        f.write(f"""===========================================================
+                ==============================\n""")
+        f.write(f"""Secret key {secret_key} with the number {counter} produces
+                a key of {altered_key} with a hash of {output}\n""")
+        f.write(f"""===========================================================
+                ==============================""")
         break
-    f.write(f"Secret key {secret_key} with the number {counter} produces a key of {altered_key} with a hash of {output}\n")
+    f.write(f"""Secret key {secret_key} with the number {counter} produces a
+            key of {altered_key} with a hash of {output}\n""")
     counter += 1
 f.close()
 
