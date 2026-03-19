@@ -1,20 +1,19 @@
-#Need to count the number of characters in a string, and also their in memory
-#values e.g what escape characters are evaluated to
+#Do I need to edit the string, or should i just add extra to the character count each time I encounter a backslash?
 
 import re
 import pdb
-
-#!!CASE TO INVESTIGATE: three backslashes (where two are an escaped backslash and the third is the beginning of a hex character)
 
 def mem_counter(string):
     #r = iter(range(len(string.strip('"'))))
     #if(string[0:3] == 'njr'):
         #breakpoint()
-    in_memory_count = 0
+    raw_encode_count = 2 # each string has new quotations added, and the previous quotations get an extra backslash to escape for them.
+    #breakpoint()
     pos = 0
+
     while pos < len(string):
     #for i in r:
-        #breakpoint()
+
         if (string[pos] == '\\'):
             #breakpoint()
             #need 4 backslashses to match a single in string backslash if not
@@ -23,30 +22,29 @@ def mem_counter(string):
             #e.g regex("\\\\") is interpreted as regex(\\), which is now a
             #regex matching a single backslash. more info:
             #https://stackoverflow.com/questions/4025482/cant-escape-the-backslash-in-a-regular-expression
+            raw_encode_count += 1
+        elif(string[pos] == '\"'):
+            raw_encode_count += 1
 
-            if(re.match(r"\\x[a-f, 0-9]{2}",string[pos:pos+4])):
-                pos+=3
 
-            else:
-                pos+=1
-
-        in_memory_count += 1
+        raw_encode_count += 1
         pos+=1
 
-    #print(in_memory_count)
-    return in_memory_count
+    #print(raw_encode_count)
+    return raw_encode_count
 
 with open("input.md", "r", encoding="utf-8") as f:
     raw_character_count = 0
-    in_memory_count = 0
+    raw_encode_count = 0
     for line in f:
-        line = line.strip("\n")
-        raw_character_count += len(line)
-        line=line.strip('"')
-        print(line)
         #breakpoint()
+
+        line=line.strip("\n")
+        raw_character_count += len(line)
+        print(line)
+        #had to get rid of stripping the quotations because it was messing up strings that had multiple quotations at the end (stripping them all)
         #char_count = 0
-        in_memory_count += mem_counter(line)
+        raw_encode_count += mem_counter(line)
         print(mem_counter(line))
         '''
         r = iter(range(len(line)))
@@ -71,9 +69,10 @@ with open("input.md", "r", encoding="utf-8") as f:
         '''
 
 print(raw_character_count)
-print(in_memory_count)
-print(raw_character_count - in_memory_count)
-
+print(raw_encode_count)
+print(raw_encode_count - raw_character_count)
+#2310 too high
+#2055 too low
 
 print(r"A string of '\\\\on' is counted as " +f"{mem_counter("\\\\on")}")
 #breakpoint()
