@@ -116,7 +116,7 @@ for area in areas2:
 
 final_start = None
 for area in evaluations:
-    if final_start == None or evaluations[area] < evaluations[lowest]:
+    if final_start == None or evaluations[area] < evaluations[final_start]:
         final_start = area
 print(f"With a starting point of {final_start} the smallest path is {evaluations[final_start]}")
 
